@@ -1,0 +1,25 @@
+{
+"name": "Bull Island",
+"description": "Not very pretty",
+"author": "->users.bart",
+"region": "East",
+"latitude": "9875",
+"longitude": "1234"
+},
+{
+"name": "Saltee Islands",
+"description": "Good birdwatching location",
+"author": "->users.bart",
+"region": "East",
+"latitude": "9875",
+"longitude": "1234"
+},
+{
+"name": "Kyusshu",
+"description": "Very hot",
+"author": "->users.bart",
+"region": "East",
+"latitude": "9875",
+"longitude": "1234"
+}
+]

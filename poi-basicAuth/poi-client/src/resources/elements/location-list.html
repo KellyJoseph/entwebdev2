@@ -1,0 +1,34 @@
+<template>
+  <section class="ui raised segment">
+    <aside>
+    </aside>
+    <article class="six wide column">
+      <th> Locations </th>
+      <table class="ui celled table segment">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>id</th>
+          <th>photos</th>
+          <th>delete</th>
+          <th>edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr repeat.for="location of locations">
+          <td> ${location.name} </td>
+          <td> ${location.description} </td>
+          <td> ${location._id} </td>
+          <td><button> <a href="http://localhost:8080/#/photos" click.trigger="getPhotosByLocation(location.name)">View Photos </a> </button> </td>
+          <td><button click.trigger="deleteLocation(location._id)">Delete Location</button> </td>
+          <td><a href="/updatelocationform/${location._id}"><i class="large edit icon"></i></a></td>
+        </tr>
+        </tbody>
+      </table>
+
+
+    </article>
+    </div>
+  </section>
+</template>

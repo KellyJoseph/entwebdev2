@@ -1,0 +1,27 @@
+<template>
+    <section class="ui raised segment">
+      <aside>
+      </aside>
+      <article class="six wide column">
+        <h2>List Users</h2>
+        <table class="ui celled table segment">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>User ID</th>
+            <th>Delete User</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr repeat.for="user of users">
+            <td> ${user.firstName} ${user.lastName} </td>
+            <td> ${user.email} </td>
+            <td> ${user._id} </td>
+            <td> <button click.trigger="deleteUser(user._id)">Delete User</button> </td>
+          </tbody>
+        </table>
+      </article>
+      </div>
+    </section>
+  </template>

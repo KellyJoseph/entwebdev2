@@ -1,0 +1,28 @@
+<template>
+
+  <section class="ui raised segment">
+    <div class="ui grid">
+        <div class ="ui segment">
+          <h2>Now viewing photos for  </h2>
+        </div>
+        <table class="ui celled table segment">
+          <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Title</th>
+            <th>Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr repeat.for="photo of photos">
+            <td><img src="${photo.url}"></td>
+            <td>${photo.title}</td>
+            <td><button>Delete</button></td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+    </div>
+  </section>
+
+</template>

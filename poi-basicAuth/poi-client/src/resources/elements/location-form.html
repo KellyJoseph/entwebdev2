@@ -1,0 +1,19 @@
+<template>
+  <form submit.trigger="addLocation()" class="ui form stacked segment">
+    <h3 class="ui dividing header"> Add a Location </h3>
+    <div class="field">
+      <label>name </label> <input value.bind="name">
+    </div>
+    <div class="field">
+      <label>Description </label> <input value.bind="description">
+    </div>
+    <div class="field" repeat.for="region of regions">
+      <div class="ui radio checkbox">
+        <input type="radio" model.bind="region" checked.bind="region">
+        <label>${region}</label>
+      </div>
+    </div>
+    </div>
+    <button class="ui blue submit button">Add</button>
+  </form>
+</template>
