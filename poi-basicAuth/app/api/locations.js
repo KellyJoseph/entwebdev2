@@ -7,7 +7,10 @@ const Boom = require('boom');
 const Locations = {
 
   find: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const locations = await Location.find();
       return locations;
@@ -15,7 +18,10 @@ const Locations = {
   },
 
   findOne: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       try {
         const location = await Location.findOne({ _id: request.params.id });
@@ -29,7 +35,10 @@ const Locations = {
     }
   },
   create: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const newLocation = new Location(request.payload);
       const location = await newLocation.save();
@@ -42,7 +51,10 @@ const Locations = {
   },
 
   deleteAll: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       await Location.remove({});
       return { success: true };
@@ -50,7 +62,10 @@ const Locations = {
   },
 
   deleteOne: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       //const response = await Location.remove({ _id: request.params.id });
       const response = await Location.deleteOne({ _id: request.params.id });

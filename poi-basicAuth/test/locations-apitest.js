@@ -14,9 +14,21 @@ suite('POI API tests', function () {
   let newLocation = fixtures.newLocation;
   let newLocation2 = fixtures.newLocation2;
   let newLocation3 = fixtures.newLocation3;
+  let newUser = fixtures.newUser;
 
 
   const poiService = new POIService('http://desktop-rm1pdj6:3000');
+
+  suiteSetup(async function() {
+    await poiService.deleteAllUsers();
+    const returnedUser = await poiService.createUser(newUser);
+    const response = await poiService.authenticate(newUser);
+  });
+
+  suiteTeardown(async function() {
+    await poiService.deleteAllUsers();
+    poiService.clearAuth();
+  });
 
   setup(async function() {
     await poiService.deleteAllLocations();

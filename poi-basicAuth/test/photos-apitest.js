@@ -10,11 +10,23 @@ suite('POI API tests', function () {
   let photos = fixtures.photos;
   let newLocation =fixtures.newLocation;
   let newPhoto = fixtures.newPhoto;
+  let newUser = fixtures.newUser;
   this.timeout(0)
 
 
   const poiService = new POIService('http://desktop-rm1pdj6:3000');
   poiService.deleteAllPhotos();
+
+  suiteSetup(async function() {
+    await poiService.deleteAllUsers();
+    const returnedUser = await poiService.createUser(newUser);
+    const response = await poiService.authenticate(newUser);
+  });
+
+  suiteTeardown(async function() {
+    await poiService.deleteAllUsers();
+    poiService.clearAuth();
+  });
 
   test('Get all photos', async function () {
     await poiService.deleteAllPhotos();
