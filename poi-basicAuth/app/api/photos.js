@@ -12,7 +12,10 @@ const writeFile = util.promisify(fs.writeFile);
 const Photos = {
 
   find: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const photos = await Photo.find();
       return photos;
@@ -20,7 +23,10 @@ const Photos = {
   },
 
   findByLocation: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const photos = await Photo.find({ location: request.params.name });
       return photos;
@@ -28,7 +34,10 @@ const Photos = {
   },
 
   findOne: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       try {
         const photo = await Photo.findOne({ _id: request.params.id });
@@ -44,7 +53,10 @@ const Photos = {
 
 
   create: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const photo = request.payload.file;
       await writeFile('./public/temp.img', photo);
@@ -67,7 +79,10 @@ const Photos = {
   },
 
   deleteAll: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       try {
         const photos = await Photo.find();
@@ -86,7 +101,10 @@ const Photos = {
   },
 
   deleteOne: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const returnedPhoto = await Photo.findOne({ _id: request.params.id });
       await cloudinary.v2.uploader.destroy(returnedPhoto.public_id, {}, function(error, result) { // delete the image from cloudinary
@@ -99,7 +117,12 @@ const Photos = {
       return Boom.notFound('id not found');
     }
   },
+
   deleteImage: {
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const mongoid = request.params.id; //get the id for the mongodb object. T
       const photoToDelete = await Photo.findById(mongoid); //use that id to retrieve the mongodb document object

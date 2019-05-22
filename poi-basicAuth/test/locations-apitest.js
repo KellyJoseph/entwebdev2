@@ -18,12 +18,12 @@ suite('POI API tests', function () {
 
   const poiService = new POIService('http://desktop-rm1pdj6:3000');
 
-  setup(async function () {
+  setup(async function() {
     await poiService.deleteAllLocations();
   });
 
 
-  test('create a new location', async function () {
+  test('create a new location', async function() {
     poiService.deleteAllLocations();
 
     const returnedLocation = await poiService.createLocation(newLocation);
@@ -32,10 +32,10 @@ suite('POI API tests', function () {
     assert.equal(returnedLocation.author, newLocation.author);
     assert.equal(returnedLocation.description, newLocation.description);
     assert.isDefined(returnedLocation._id);
-    assert(_.some([returnedLocation], newLocation),  'returnedCandidate must be a superset of newCandidate');
+    assert(_.some([returnedLocation], newLocation), 'returnedCandidate must be a superset of newCandidate');
   });
 
-  test('Get location by ID', async function () {
+  test('Get location by ID', async function() {
     poiService.deleteAllLocations();
 
     const createdLocation = await poiService.createLocation(newLocation2);
@@ -44,7 +44,7 @@ suite('POI API tests', function () {
   });
 
 
-  test('delete a location by ID', async function () {
+  test('delete a location by ID', async function() {
     poiService.deleteAllLocations();
 
 
@@ -55,10 +55,10 @@ suite('POI API tests', function () {
     console.log(beforeDelete);
     await poiService.deleteOneLocation(id);
     const afterDelete = await poiService.getLocation(id);
-    assert (afterDelete == null);
+    assert(afterDelete == null);
   });
 
-  test('Delete all Locations', async function () {
+  test('Delete all Locations', async function() {
     poiService.deleteAllLocations();
 
 
@@ -69,12 +69,12 @@ suite('POI API tests', function () {
     assert.equal(response2.length, 0);
   });
 
-  test('Get all locations', async function () {
+  test('Get all locations', async function() {
     poiService.deleteAllLocations();
     const response = await poiService.getAllLocations();
     assert.equal(response.length, 0);
     console.log(locations.length);
-    for (let i=0; i < locations.length;i++) {
+    for (let i = 0; i < locations.length; i++) {
       await poiService.createLocation(locations[i]);
     }
     const response2 = await poiService.getAllLocations();
@@ -82,7 +82,4 @@ suite('POI API tests', function () {
     console.log("response length is" + response2.length);
 
   });
-
-
-
 });

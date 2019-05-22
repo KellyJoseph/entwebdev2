@@ -13,19 +13,7 @@ const Accounts = require('./app/controllers/accounts');
 const Locations = require('./app/controllers/locations');
 const Photos = require('./app/controllers/photos');
 const Admin = require('./app/controllers/admin');
-const handleFileUpload = file => {
-  return new Promise((resolve, reject) => {
-    const filename = file.hapi.filename
-    const data = file._data
 
-    fs.writeFile('./upload/' + filename, data, err => {
-      if (err) {
-        reject(err)
-      }
-      resolve({ message: 'Upload successfully!' })
-    })
-  })
-};
 
 module.exports = [
   { method: 'GET', path: '/', config: Accounts.index },

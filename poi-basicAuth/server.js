@@ -1,7 +1,7 @@
 'use strict';
 const fs = require('fs');
 require('dotenv').config();
-
+const utils = require('./app/api/utils.js');
 const Hapi = require('hapi');
 
 
@@ -39,6 +39,8 @@ async function init() {
 
     await server.register(require('hapi-auth-cookie'));
 
+  await server.register(require('hapi-auth-jwt2'));
+
     server.views({
         engines: {
             hbs: require('handlebars')
@@ -60,6 +62,12 @@ async function init() {
         ttl: 24 * 60 * 60 * 1000,
         redirectTo: '/'
     });
+
+  server.auth.strategy('jwt', 'jwt', {
+    key: 'secretpasswordnotrevealedtoanyone',
+    validate: utils.validate,
+    verifyOptions: { algorithms: ['HS256'] },
+  });
 
     server.auth.default({
         mode: 'required',

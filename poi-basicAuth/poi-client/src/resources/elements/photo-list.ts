@@ -14,7 +14,8 @@ export class PhotoList {
   constructor (private ds: DonationService) {}
 
   deletePhoto(_id) {
-    this.ds.deletePhoto(_id);
+    const result = this.ds.deletePhoto(_id);
+    console.log(result);
     console.log('deletePhoto function is triggered...');
   }
 }

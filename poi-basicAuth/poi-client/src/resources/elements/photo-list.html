@@ -17,7 +17,7 @@
           <tr repeat.for="photo of photos">
             <td><img src="${photo.url}"></td>
             <td>${photo.title}</td>
-            <td><button>Delete</button></td>
+            <td><button click.trigger="deletePhoto(photo._id)">Delete Photo</button> </td>
           </tr>
           </tbody>
         </table>

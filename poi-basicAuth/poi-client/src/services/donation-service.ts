@@ -63,7 +63,7 @@ export class DonationService {
 
   async deletePhoto(_id) {
     console.log(_id);
-    const response = await this.httpClient.delete('api/users/' + _id);
+    const response = await this.httpClient.delete('api/photos/' + _id);
     console.log(response);
   }
 
@@ -92,7 +92,26 @@ export class DonationService {
     return response;
   }
 
-  async uploadPhoto(title: string, selectedImage){
+// /api/users'
+
+  async signup(firstName: string, lastName: string, email: string, password: string) {
+    const user = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+      admin: false
+    };
+    const response = await this.httpClient.post('/api/users', user);
+    const newUser = await response.content;
+    this.users.set(newUser.email, newUser);
+    //this.usersById.set(newUser._id, newUser);
+    this.changeRouter(PLATFORM.moduleName('app'))
+    return false;
+  }
+
+
+async uploadPhoto(title: string, selectedImage){
     console.log("now uploading photo for: " + this.currentLocation)
     let formData = new FormData();
     formData
@@ -115,10 +134,6 @@ export class DonationService {
     }
   }
 
-  signup(firstName: string, lastName: string, email: string, password: string) {
-    //this.changeRouter(PLATFORM.moduleName('app'))
-    return false;
-  }
 
   changeRouter(module:string) {
     this.router.navigate('/', { replace: true, trigger: false });

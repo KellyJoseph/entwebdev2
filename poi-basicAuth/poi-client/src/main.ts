@@ -15,5 +15,5 @@ export function configure(aurelia: Aurelia) {
   }
 
   //return aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
-  return aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app')));
+  return aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('start')));
 }
