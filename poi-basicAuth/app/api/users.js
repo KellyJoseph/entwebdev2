@@ -7,7 +7,10 @@ const utils = require('./utils.js');
 const Users = {
 
   find: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       const users = await User.find();
       return users;
@@ -15,7 +18,10 @@ const Users = {
   },
 
   findOne: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       try {
         const user = await User.findOne({ _id: request.params.id });
@@ -30,6 +36,9 @@ const Users = {
   },
   create: {
     auth: false,
+    //auth: {
+    //  strategy: 'jwt',
+    //},
     handler: async function(request, h) {
       const newUser = new User(request.payload);
       if (request.payload.password === "secret") {
@@ -44,16 +53,21 @@ const Users = {
     }
   },
   deleteAll: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
       await User.remove({});
       return { success: true };
     }
   },
   deleteOne: {
-    auth: false,
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
     handler: async function(request, h) {
-      //const response = await Location.remove({ _id: request.params.id });
       const response = await User.deleteOne({ _id: request.params.id });
       if (response.deletedCount === 1) {
         return { success: true };

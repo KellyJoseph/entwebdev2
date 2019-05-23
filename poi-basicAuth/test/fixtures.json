@@ -61,19 +61,23 @@
       "title": "Bull",
       "url": "http://res.cloudinary.com/dxdletsbp/image/upload/v1551853670/tctdudzuhwwtkfexzvlv.webp",
       "public_id": "tctdudzuhwwtkfexzvlv",
-      "location": "Bull Island"
+      "location": "Bull Island",
+      "uploader": ""
     },
     {
       "title": "kyu1",
       "url": "http://res.cloudinary.com/dxdletsbp/image/upload/v1551853861/czkbeeasyejwdpkbsp68.jpg",
       "public_id": "hfejs2bk6qryok0vo9ne",
-      "location": "Kyushu"
+      "location": "Kyushu",
+      "uploader": ""
+
     },
     {
       "title": "kyu2",
       "url": "http://res.cloudinary.com/dxdletsbp/image/upload/v1551853884/hfejs2bk6qryok0vo9ne.webp",
       "public_id": "nmh3hhrwriscjodjjx2t",
-      "location": "Kyushu"
+      "location": "Kyushu",
+      "uploader": ""
     }
   ],
   "newLocation": {

@@ -17,13 +17,18 @@ export class DonationService {
   currentLocation: string;
 
 
-  constructor(private httpClient: HttpClient, private ea: EventAggregator, private au: Aurelia, private router: Router) {
+  constructor(
+    private httpClient: HttpClient,
+    private ea: EventAggregator,
+    private au: Aurelia,
+    private router: Router
+  ) {
     httpClient.configure(http => {
       http.withBaseUrl('http://localhost:3000');
     });
-    this.getUsers();
-    this.getLocations();
-    this.getPhotos();
+    //this.getUsers();
+    //this.getLocations();
+    //this.getPhotos();
   }
 
 
@@ -48,6 +53,7 @@ export class DonationService {
     this.photos = await response.content;
     console.log(this.photos);
   }
+
 
   async deleteUser(_id) {
     console.log(_id);
@@ -123,16 +129,47 @@ async uploadPhoto(title: string, selectedImage){
   }
 
 
-
   async login(email: string, password: string) {
-    const user = this.users.get(email);
-    if (user && (  password === password)) {
-      this.changeRouter(PLATFORM.moduleName('app'))
+    const response = await this.httpClient.post('/api/users/authenticate', {
+      email: email,
+      password: password
+    });
+    const status = await response.content;
+    if (status.success) {
+      this.httpClient.configure(configuration => {
+        configuration.withHeader('Authorization', 'bearer ' + status.token);
+      });
+      localStorage.poi = JSON.stringify(response.content);
+      await this.getLocations();
+      await this.getUsers();
+      await this.getPhotos();
+      this.changeRouter(PLATFORM.moduleName('app'));
       return true;
     } else {
       return false;
     }
   }
+
+  logout() {
+    localStorage.donation = null;
+    this.httpClient.configure(configuration => {
+      configuration.withHeader('Authorization', '');
+    });
+    this.changeRouter(PLATFORM.moduleName('start'));
+  }
+
+  checkIsAuthenticated() {
+    let authenticated = false;
+    if (localStorage.donation !== 'null') {
+      authenticated = true;
+      this.httpClient.configure(http => {
+        const auth = JSON.parse(localStorage.poi);
+        http.withHeader('Authorization', 'bearer ' + auth.token);
+      });
+      this.changeRouter(PLATFORM.moduleName('app'));
+    }
+  }
+
 
 
   changeRouter(module:string) {
@@ -141,3 +178,4 @@ async uploadPhoto(title: string, selectedImage){
     this.au.setRoot(PLATFORM.moduleName(module));
   }
 }
+

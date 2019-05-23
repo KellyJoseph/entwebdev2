@@ -15,12 +15,11 @@ suite('POI API tests', function () {
 
 
   const poiService = new POIService('http://desktop-rm1pdj6:3000');
-  poiService.deleteAllPhotos();
 
   suiteSetup(async function() {
     await poiService.deleteAllUsers();
     const returnedUser = await poiService.createUser(newUser);
-    const response = await poiService.authenticate(newUser);
+    const response = await poiService.authenticate(returnedUser);
   });
 
   suiteTeardown(async function() {
@@ -92,6 +91,13 @@ suite('POI API tests', function () {
     const response2 = await poiService.getAllPhotos();
     console.log("photos after delete: " + response.length);
     assert.equal(response2.length, 0);
+  });
+
+  test('create a donation and check donor', async function() {
+    const returnedUser = await poiService.createUser(newUser);
+    await poiService.createPhoto(returnedUser._id, photos[0]);
+    const returnedPhotos = await poiService.getPhoto((returnedUser._id));
+    assert.isDefined(returnedPhotos[0].uploader);
   });
 
 });

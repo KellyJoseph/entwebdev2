@@ -1,8 +1,12 @@
 import { RouterConfiguration, Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
+import { inject } from 'aurelia-framework';
+import { poiService } from './services/donation-service';
 
+@inject(poiService)
 export class Start {
   router: Router;
+  constructor(private poi: poiService) {}
 
   configureRouter(config: RouterConfiguration, router: Router) {
     config.map([

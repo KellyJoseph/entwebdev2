@@ -1,8 +1,5 @@
 'use strict';
-
-//some of these tests randomly don't work. Usually 4/5 tests pass. Sometimes 3/5 and sometimes 5/5
-//it seems random
-
+//some of these tests randomly don't work. Usually 4/5 tests pass. Sometimes 3/5 and sometimes 5/5 it seems random
 const assert = require('chai').assert;
 const POIService = require('./poi-service');
 const fixtures = require('./fixtures.json');
@@ -22,7 +19,7 @@ suite('POI API tests', function () {
   suiteSetup(async function() {
     await poiService.deleteAllUsers();
     const returnedUser = await poiService.createUser(newUser);
-    const response = await poiService.authenticate(newUser);
+    const response = await poiService.authenticate(returnedUser);
   });
 
   suiteTeardown(async function() {
@@ -36,15 +33,11 @@ suite('POI API tests', function () {
 
 
   test('create a new location', async function() {
-    poiService.deleteAllLocations();
 
     const returnedLocation = await poiService.createLocation(newLocation);
     console.log(returnedLocation);
-    assert.equal(returnedLocation.name, newLocation.name);
-    assert.equal(returnedLocation.author, newLocation.author);
-    assert.equal(returnedLocation.description, newLocation.description);
+    assert(_.some([returnedLocation], newLocation), 'returnedLocation must be a superset of newLocation');
     assert.isDefined(returnedLocation._id);
-    assert(_.some([returnedLocation], newLocation), 'returnedCandidate must be a superset of newCandidate');
   });
 
   test('Get location by ID', async function() {

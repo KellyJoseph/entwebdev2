@@ -5,7 +5,7 @@ const POIService = require('./poi-service');
 const fixtures = require('./fixtures.json');
 const utils = require('../app/api/utils.js');
 
-suite('Candidate API tests', function () {
+suite('POI API tests', function () {
 
   let users = fixtures.users;
   let newUser = fixtures.newUser;
@@ -17,10 +17,9 @@ suite('Candidate API tests', function () {
     await poiService.deleteAllUsers();
   });
 
-
   test('authenticate', async function () {
     const returnedUser = await poiService.createUser(newUser);
-    const response = await poiService.authenticate(returnedUser);
+    const response = await poiService.authenticate(newUser);
     assert(response.success);
     assert.isDefined(response.token);
   });
