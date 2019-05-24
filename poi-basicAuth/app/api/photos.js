@@ -5,6 +5,9 @@ const Boom = require('boom');
 const cloudinary = require('cloudinary');
 const fs = require('fs');
 const util = require('util');
+const utils = require('./utils');
+//const fixtures = require('./fixtures.json');
+
 const writeFile = util.promisify(fs.writeFile);
 
 
@@ -51,27 +54,27 @@ const Photos = {
     }
   },
 
-
   create: {
     //auth: false,
     auth: {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
-      //const userId = utils.getUserIdFromRequest(request);
-      //console.log("jwt extracted user is is: " + userId);
+      const userId = utils.getUserIdFromRequest(request);
+      console.log("user id extracted from jwt is: " + userId);
       const photo = request.payload.file;
+      console.log("payload file type is :" +  typeof(photo));
       await writeFile('./public/temp.img', photo);
-      const result = await cloudinary.v2.uploader.upload('./public/images/kitten.jpg', function(error, result) {
-        // const result = await cloudinary.v2.uploader.upload('./public/temp.img', function(error, result) {
-        //console.log(result)
+      //const result = await cloudinary.v2.uploader.upload('./public/images/kitten.jpg', function(error, result) {
+      const result = await cloudinary.v2.uploader.upload('./public/temp.img', function(error, result) {
+        console.log("cloudinary upload " +  result)
       });
       const newPhoto = new Photo({
         title: request.payload.title,
         url: result.url,
         public_id: result.public_id,
-        location: request.params.name
-        //uploader: ""
+        location: request.params.name,
+        uploader: userId
       })
       await newPhoto.save();
       return newPhoto;

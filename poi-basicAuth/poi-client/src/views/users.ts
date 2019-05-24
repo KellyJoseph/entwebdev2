@@ -1,12 +1,12 @@
 import { inject } from 'aurelia-framework';
-import {User} from "../services/donation-types";
-import {DonationService} from "../services/donation-service";
+import {User} from "../services/poi-types";
+import {PoiService} from "../services/poi-service";
 
-@inject(DonationService)
+@inject(PoiService)
 export class Users {
   users: User[] = [];
 
-  constructor(private ds: DonationService) {
+  constructor(private ds: PoiService) {
     this.users = ds.users2;
 
   }

@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
-import {DonationService} from '../../services/donation-service';
-import { Photo } from '../../services/donation-types';
+import {PoiService} from '../../services/poi-service';
+import { Photo } from '../../services/poi-types';
 
-@inject(DonationService)
+@inject(PoiService)
 export class PhotoForm {
   @bindable
   photos: Photo[];
@@ -12,7 +12,7 @@ export class PhotoForm {
   photo = 'photo';
   selectedImage = "selectedImage";
 
-  constructor (private ds: DonationService) {}
+  constructor (private ds: PoiService) {}
 
 
   uploadPhoto() {
@@ -20,7 +20,5 @@ export class PhotoForm {
     console.log(this.title);
     console.log(result);
   }
-
-
 }
 

@@ -1,0 +1,16 @@
+<template>
+  <section class="ui raised segment">
+    <article class="six wide column">
+      <h3> Comments </h3>
+        <div repeat.for="comment of comments">
+          <div class="ui raised segment">
+          <a> ${comment.author} posted on ${comment.time}
+            <br>
+            ${comment.comment} </a>
+            <br>
+          <a><button click.trigger="deleteComment(comment._id)">Delete</button> </a>
+          </div>
+        </div>
+    </article>
+  </section>
+</template>

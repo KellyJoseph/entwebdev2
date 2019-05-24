@@ -1,5 +1,5 @@
 import { bindable } from 'aurelia-framework';
-import { Candidate } from '../../services/donation-types';
+import { Candidate } from '../../services/poi-types';
 
 export class CandidateForm {
   firstName: string;

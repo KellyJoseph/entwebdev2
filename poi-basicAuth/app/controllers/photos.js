@@ -88,7 +88,8 @@ const Photos = {
         return h.redirect('/listlocations');
       }
     },
-  //need to first delete cloudinary image firsr, then the mongodb object that has the url to that cloudinary image
+
+  //need to first delete cloudinary image, then the mongodb object that has the url to that cloudinary image
   deleteImage: {
     handler: async function(request, h) {
       const mongoid = request.params.id; //get the id for the mongodb object. T
@@ -99,22 +100,6 @@ const Photos = {
         console.log(result)
       });
       const photo = await Photo.remove({_id: request.params.id}) //delete the object from mongodb
-      return h.redirect('/listlocations');
-    }
-  },
-
-
-  addLocation: {
-    handler: async function(request, h) {
-      const id = request.auth.credentials.id; //comes from session cookie. Where is the id created? Can't see it im
-      const user = await User.findById(id); //... account signup or the User model? How can it be used to find a user?
-      const data = request.payload;
-      const newLocation = new Location({
-        name: data.name,
-        description: data.description,
-        author: user._id
-      });
-      await newLocation.save();
       return h.redirect('/listlocations');
     }
   },

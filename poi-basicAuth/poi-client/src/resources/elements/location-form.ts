@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
-import { Location } from '../../services/donation-types';
-import { DonationService } from '../../services/donation-service';
+import { Location } from '../../services/poi-types';
+import { PoiService } from '../../services/poi-service';
 
-@inject(DonationService)
+@inject(PoiService)
 export class LocationForm {
   @bindable
   locations: Location[];
@@ -12,11 +12,11 @@ export class LocationForm {
   description = 'describe location';
   author = 'author id';
   region = 'somewhere';
-  latitude = 'lat';
-  longitude = 'long';
+  lat = 'lat';
+  lng = 'lng';
   _id = 'some id';
 
-  constructor (private ds: DonationService) {}
+  constructor (private ds: PoiService) {}
 
 
   addLocation() {
@@ -25,11 +25,11 @@ export class LocationForm {
       description: this.description,
       author: this.author,
       region: this.region,
-      latitude: this.latitude,
-      longitude: this.longitude,
+      latitude: this.lat,
+      longitude: this.lng,
       _id: ''
     };
-    const result = this.ds.addLocation(this.name, this.description, this.author, this.region, this.latitude, this.longitude, this._id);
+    const result = this.ds.addLocation(this.name, this.description, this.author, this.region, this.lat, this.lng, this._id);
     console.log(location);
     console.log(result);
   }

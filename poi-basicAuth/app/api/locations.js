@@ -3,6 +3,8 @@
 const Location = require('../models/location');
 const Photo = require('../models/photo');
 const Boom = require('boom');
+const utils = require('./utils');
+
 
 const Locations = {
 
@@ -40,7 +42,9 @@ const Locations = {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
+      const userId = utils.getUserIdFromRequest(request);
       const newLocation = new Location(request.payload);
+      newLocation.author = userId;
       const location = await newLocation.save();
       if (location) {
         return h.response(location).code(201);

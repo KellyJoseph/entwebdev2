@@ -1,13 +1,13 @@
 import { inject } from 'aurelia-framework';
-import {Location} from "../services/donation-types";
-import {DonationService} from "../services/donation-service";
+import {Location} from "../services/poi-types";
+import {PoiService} from "../services/poi-service";
 
-@inject(DonationService)
+@inject(PoiService)
 export class Locations {
   locations: Location[] = [];
   regions = ['North', ' North East', 'East', 'South East', 'South', 'South West', 'West', 'North West'];
 
-  constructor(private ds: DonationService) {
+  constructor(private ds: PoiService) {
     this.locations = ds.locations;
 
   }

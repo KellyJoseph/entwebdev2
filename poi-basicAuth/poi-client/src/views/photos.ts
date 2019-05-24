@@ -1,15 +1,17 @@
 import { inject } from 'aurelia-framework';
-import {Photo} from "../services/donation-types";
-import {DonationService} from "../services/donation-service";
+import {Photo, Comment} from "../services/poi-types";
+import {PoiService} from "../services/poi-service";
 
-@inject(DonationService)
+@inject(PoiService)
 export class Users {
   photos: Photo[] = [];
-  locationPhotos: Photo[] = [];
+  //locationPhotos: Photo[] = [];
+  comments: Comment[] = [];
 
-  constructor(private ds: DonationService) {
+  constructor(private ds: PoiService) {
     this.photos = ds.photos;
-    this.locationPhotos = ds.locationPhotos;
+    //this.locationPhotos = ds.locationPhotos;
+    this.comments = ds.comments;
 
   }
 }

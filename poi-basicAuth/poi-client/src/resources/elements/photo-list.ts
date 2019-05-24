@@ -1,17 +1,17 @@
 import { bindable } from 'aurelia-framework';
-import {Photo} from "../../services/donation-types";
-import { DonationService } from '../../services/donation-service';
+import {Photo} from "../../services/poi-types";
+import { PoiService } from '../../services/poi-service';
 import { inject } from 'aurelia-framework';
 
 
-@inject(DonationService)
+@inject(PoiService)
 export class PhotoList {
   @bindable
   photos: Photo[];
   @bindable
   locationPhotos: Photo[];
 
-  constructor (private ds: DonationService) {}
+  constructor (private ds: PoiService) {}
 
   deletePhoto(_id) {
     const result = this.ds.deletePhoto(_id);

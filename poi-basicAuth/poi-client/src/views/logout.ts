@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
-import { DonationService } from '../services/donation-service';
+import { PoiService } from '../services/poi-service';
 
-@inject(DonationService)
+@inject(PoiService)
 export class Logout {
-  constructor(private ds: DonationService) {}
+  constructor(private ds: PoiService) {}
 
   attached() {
     this.ds.logout();

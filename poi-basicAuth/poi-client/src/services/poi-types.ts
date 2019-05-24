@@ -23,6 +23,14 @@ export interface Location {
   description: string;
   author: string;
   region: string;
-  latitude: string;
-  longitude: string;
+  lat: number;
+  lng: number;
+}
+
+export interface Comment {
+  _id: string;
+  comment: string;
+  author: string;
+  location: string;
+  time: string;
 }

@@ -1,9 +1,9 @@
 import { inject } from 'aurelia-framework';
 import { bindable } from 'aurelia-framework';
-import { Candidate, Donation } from '../../services/donation-types';
-import {DonationService} from "../../services/donation-service";
+import { Candidate, Donation } from '../../services/poi-types';
+import {PoiService} from "../../services/poi-service";
 
-@inject(DonationService)
+@inject(PoiService)
 export class DonateForm {
   @bindable
   paymentMethods: string[];
@@ -14,7 +14,7 @@ export class DonateForm {
   selectedMethod = '';
   selectedCandidate : Candidate = null;
 
-  constructor (private ds: DonationService) {}
+  constructor (private ds: PoiService) {}
 
   makeDonation() {
     this.ds.donate(parseInt(this.amount), this.selectedMethod, this.selectedCandidate);

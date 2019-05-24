@@ -1,8 +1,17 @@
 <template>
   <require from="../resources/elements/photo-list"></require>
   <require from="../resources/elements/photo-form"></require>
+  <require from="../resources/elements/comment-form"></require>
+  <require from="../resources/elements/comment-list"></require>
 
-  <photo-list photos.bind="photos"></photo-list>
+
   <photo-form></photo-form>
+  <photo-list photos.bind="photos"></photo-list>
+
+
+  <comment-form></comment-form>
+  <comment-list comments.bind="comments"></comment-list>
+
+
 </template>
 

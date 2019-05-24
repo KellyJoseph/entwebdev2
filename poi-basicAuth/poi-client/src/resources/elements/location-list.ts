@@ -1,10 +1,10 @@
 import { bindable } from 'aurelia-framework';
-import {Location, Photo} from "../../services/donation-types";
-import { DonationService } from '../../services/donation-service';
+import {Location, Photo} from "../../services/poi-types";
+import { PoiService } from '../../services/poi-service';
 import { inject } from 'aurelia-framework';
 
 
-@inject(DonationService)
+@inject(PoiService)
 export class LocationList {
   @bindable
   locations: Location[];
@@ -12,7 +12,7 @@ export class LocationList {
   locationPhotos: Photo[];
 
 
-  constructor (private ds: DonationService) {}
+  constructor (private ds: PoiService) {}
 
   getPhotosByLocation(locationName) {
     this.ds.getPhotosByLocation(locationName);

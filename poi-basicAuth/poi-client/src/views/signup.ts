@@ -1,7 +1,7 @@
 import { inject } from 'aurelia-framework';
-import { DonationService } from '../services/donation-service';
+import { PoiService } from '../services/poi-service';
 
-@inject(DonationService)
+@inject(PoiService)
 export class Signup {
   firstName = 'Marge';
   lastName = 'Simpson';
@@ -9,7 +9,7 @@ export class Signup {
   password = 'secret';
   prompt = '';
 
-  constructor(private ds: DonationService) {}
+  constructor(private ds: PoiService) {}
 
   signup(e) {
     console.log(`Trying to sign up ${this.email}`);

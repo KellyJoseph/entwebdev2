@@ -1,15 +1,15 @@
 import { bindable } from 'aurelia-framework';
-import {User} from "../../services/donation-types";
-import { DonationService } from '../../services/donation-service';
+import {User} from "../../services/poi-types";
+import { PoiService } from '../../services/poi-service';
 import { inject } from 'aurelia-framework';
 
 
-@inject(DonationService)
+@inject(PoiService)
 export class UserList {
   @bindable
   users : User[];
 
-  constructor (private ds: DonationService) {}
+  constructor (private ds: PoiService) {}
 
   deleteUser(_id) {
     this.ds.deleteUser(_id);
