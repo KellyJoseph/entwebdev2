@@ -7,7 +7,8 @@ import { EventAggregator } from 'aurelia-event-aggregator';
 
 @inject(HttpClient, EventAggregator, Aurelia, Router)
 export class PoiService {
-  users: User[] = [];
+  users: Map<string, User> = new Map();
+  users2: User[] = [];
   locations: Location[] = [];
   photos: Photo[] = [];
   //locationPhotos: Photo[] = [];
@@ -34,10 +35,10 @@ export class PoiService {
   async getUsers() {
     const response = await this.httpClient.get('/api/users');
     const users = await response.content;
-    this.users = users;
-    users.forEach(user => {
-      this.users.set(user.email, user);
-    });
+    this.users2 = users;
+    //users.forEach(user => {
+    //  this.users.set(user.email, user);
+    //});
     console.log(this.users);
   }
 
@@ -162,6 +163,7 @@ export class PoiService {
       await this.getUsers();
       await this.getPhotos();
       this.changeRouter(PLATFORM.moduleName('app'));
+      console.log("login worked");
       return true;
     } else {
       return false;
