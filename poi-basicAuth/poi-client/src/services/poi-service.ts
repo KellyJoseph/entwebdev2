@@ -122,12 +122,12 @@ export class PoiService {
   }
 
 
-  async uploadPhoto(title: string, selectedImage){
+  async uploadPhoto(title: string, files){
     console.log('now uploading photo for: ' + this.currentLocation);
     let formData = new FormData();
     formData.append('title', title);
     formData.append('location', this.currentLocation);
-    formData.append('file', selectedImage);
+    formData.append('file', files[0]);
     console.log('type of selected image is : ' + typeof (selectedImage));
     const response = await this.httpClient.post('/api/locations/' + this.currentLocation + '/photos', formData);
     console.log(response);

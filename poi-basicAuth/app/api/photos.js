@@ -62,9 +62,12 @@ const Photos = {
     handler: async function(request, h) {
       const userId = utils.getUserIdFromRequest(request);
       console.log("user id extracted from jwt is: " + userId);
-      const photo = request.payload.file;
-      console.log("payload file type is :" +  typeof(photo));
-      await writeFile('./public/temp.img', photo);
+
+      console.log(request.payload.title);
+      console.log(request.payload.files);
+      console.log("payload title type is :" +  typeof(request.payload.title));
+      console.log("payload file type is :" +  typeof(request.payload.file));
+      await writeFile('./public/temp.img', request.payload.file);
       //const result = await cloudinary.v2.uploader.upload('./public/images/kitten.jpg', function(error, result) {
       const result = await cloudinary.v2.uploader.upload('./public/temp.img', function(error, result) {
         console.log("cloudinary upload " +  result)

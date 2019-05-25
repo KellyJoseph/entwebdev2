@@ -1,20 +1,20 @@
-import { EventAggregator } from 'aurelia-event-aggregator';
-import { LeafletMap } from '../../services/leaflet-map';
+import { bindable } from 'aurelia-framework';
+import { Comment } from "../../services/poi-types";
+import { PoiService } from '../../services/poi-service';
+import { inject } from 'aurelia-framework';
 
+
+@inject(PoiService)
 export class DonationMap {
-/*  mapId = 'donations-map';
-  mapHeight = 300;
-  map: LeafletMap;
+  @bindable
+  comments: Comment[];
 
-  constructor(private ea: EventAggregator) {}
+  constructor (private ds: PoiService) {}
 
-  attached() {
-    const mapConfig = {
-      location: { lat: 53.2734, lng: -7.7783203 },
-      zoom: 8,
-      minZoom: 7
-    };
-    this.map = new LeafletMap(this.mapId, mapConfig, 'Terrain');
+  deleteComment(id) {
+    console.log("delete comment button was triggered");
+    const response = this.ds.deleteComment(id);
+    console.log(response);
   }
-  */
 }
+

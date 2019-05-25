@@ -8,15 +8,14 @@ export class PhotoForm {
   @bindable
   photos: Photo[];
 
-  title= 'title';
-  photo = 'photo';
-  selectedImage = "selectedImage";
+  title = null;
+  files = null;
 
   constructor (private ds: PoiService) {}
 
 
   uploadPhoto() {
-    const result = this.ds.uploadPhoto(this.title, this.selectedImage);
+    const result = this.ds.uploadPhoto(this.title, this.files);
     console.log(this.title);
     console.log(result);
   }
