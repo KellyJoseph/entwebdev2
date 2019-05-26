@@ -80,30 +80,31 @@
       "uploader": ""
     }
   ],
+
+  "comments": [
+    {
+      "comment": "This is comment number 1"
+    },
+    {
+      "comment": "This is comment number 2"
+    },
+    {
+      "comment": "This is comment number 3"
+    }
+  ],
+
   "newLocation": {
     "name": "Hokkaido",
     "description": "A wintry northern isle, famed for its snow festival",
-    "author": "5c826a5b6925383fc442452b",
     "region": "East",
     "latitude": "Don't worry about it",
     "longitude": "Don't worry about it"
   },
-  "newLocation2": {
-    "name": "Okinawa",
-    "description": "A summery southern isle, lots of US military personnel",
-    "author": "5c826a5b6925383fc442452b",
-    "region": "East",
-    "latitude": "Don't worry about it",
-    "longitude": "Don't worry about it"
+  "newComment": {
+    "comment": "Hello from Test Fixtures newComment!"
   },
-  "newLocation3": {
-    "name": "Yakushima",
-    "description": "A magical, forested isle, very humid",
-    "author": "5c826a5b6925383fc442452b",
-    "region": "East",
-    "latitude": "Don't worry about it",
-    "longitude": "Don't worry about it"
-  },
+
+
   "newUser": {
   "firstName": "Eri",
   "lastName": "Nishida",

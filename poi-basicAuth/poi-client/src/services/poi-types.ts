@@ -34,3 +34,8 @@ export interface Comment {
   location: string;
   time: string;
 }
+
+export interface Coordinates {
+  lat: number;
+  lng: number;
+}

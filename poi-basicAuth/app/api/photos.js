@@ -112,13 +112,18 @@ const Photos = {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
+      const userId = utils.getUserIdFromRequest(request);
       const returnedPhoto = await Photo.findOne({ _id: request.params.id });
-      await cloudinary.v2.uploader.destroy(returnedPhoto.public_id, {}, function(error, result) { // delete the image from cloudinary
-       // console.log(result)
-      });
-      const response = await Photo.deleteOne({ _id: request.params.id });
-      if (response.deletedCount === 1) {
-        return { success: true };
+      if (userId === returnedPhoto.uploader) {
+        await cloudinary.v2.uploader.destroy(returnedPhoto.public_id, {}, function(error, result) { // delete the image from cloudinary
+          // console.log(result)
+        });
+        const response = await Photo.deleteOne({ _id: request.params.id });
+        if (response.deletedCount === 1) {
+          return { success: true };
+      }
+      console.log("user id and uploader id don't match");
+      return Boom.badRequest('userId not a match for uploader id');
       }
       return Boom.notFound('id not found');
     }

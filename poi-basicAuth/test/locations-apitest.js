@@ -1,5 +1,5 @@
 'use strict';
-//some of these tests randomly don't work. Usually 4/5 tests pass. Sometimes 3/5 and sometimes 5/5 it seems random
+
 const assert = require('chai').assert;
 const POIService = require('./poi-service');
 const fixtures = require('./fixtures.json');
@@ -9,8 +9,6 @@ suite('POI API tests', function () {
 
   let locations = fixtures.locations;
   let newLocation = fixtures.newLocation;
-  let newLocation2 = fixtures.newLocation2;
-  let newLocation3 = fixtures.newLocation3;
   let newUser = fixtures.newUser;
 
 
@@ -24,18 +22,14 @@ suite('POI API tests', function () {
 
   suiteTeardown(async function() {
     await poiService.deleteAllUsers();
-    poiService.clearAuth();
-  });
-
-  setup(async function() {
     await poiService.deleteAllLocations();
+    poiService.clearAuth();
   });
 
 
   test('create a new location', async function() {
 
     const returnedLocation = await poiService.createLocation(newLocation);
-    console.log(returnedLocation);
     assert(_.some([returnedLocation], newLocation), 'returnedLocation must be a superset of newLocation');
     assert.isDefined(returnedLocation._id);
   });
@@ -43,17 +37,16 @@ suite('POI API tests', function () {
   test('Get location by ID', async function() {
     poiService.deleteAllLocations();
 
-    const createdLocation = await poiService.createLocation(newLocation2);
-    const returnedLocation2 = await poiService.getLocation(createdLocation._id);
-    assert.equal(createdLocation._id, returnedLocation2._id);
+    const createdLocation = await poiService.createLocation(newLocation);
+    const returnedLocation = await poiService.getLocation(createdLocation._id);
+    assert.equal(createdLocation._id, returnedLocation._id);
   });
 
 
   test('delete a location by ID', async function() {
     poiService.deleteAllLocations();
 
-
-    let createdLocation = await poiService.createLocation(newLocation3);
+    let createdLocation = await poiService.createLocation(newLocation);
     const id = createdLocation._id;
     assert(id != null);
     const beforeDelete = await poiService.getAllLocations(id);
@@ -69,7 +62,7 @@ suite('POI API tests', function () {
 
     const response = await poiService.getAllLocations();
     console.log(response.length);
-    poiService.deleteAllLocations();
+    await poiService.deleteAllLocations();
     const response2 = await poiService.getAllLocations();
     assert.equal(response2.length, 0);
   });

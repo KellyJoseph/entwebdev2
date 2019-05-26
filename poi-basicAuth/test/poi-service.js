@@ -36,6 +36,15 @@ class POIService {
       return null;
     }
   }
+
+  async getAllComments() {
+    try {
+      const response = await axios.get(this.baseUrl + '/api/comments');
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 //////////////////////////////////////////////////////////////////////////////////////////
   async getLocation(id) {
     try {
@@ -63,6 +72,25 @@ class POIService {
       return null;
     }
   }
+
+  async getComment(id) {
+    try {
+      console.log("poi service about to send request to " + this.baseUrl + '/api/comments/' + id);
+      const response = await axios.get(this.baseUrl + '/api/comments/' + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getCommentsByLocation(locationName) {
+    try {
+      const response = await this.httpClient.get('/api/locations/' + locationName + '/comments');
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 //////////////////////////////////////////////////////////////////////////////////////////////
 
   async createLocation(newLocation) {
@@ -83,9 +111,18 @@ class POIService {
     }
   }
 
-  async createPhoto(name, newPhoto) {
+  async createPhoto(name,formData) {
     try {
-      const response = await axios.post(this.baseUrl + '/api/locations/' + name + '/photos', newPhoto);
+      const response = await axios.post(this.baseUrl + '/api/locations/' + name + '/photos', formData);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async createComment(name, comment) {
+    try {
+      const response = await axios.post(this.baseUrl + '/api/locations/' + name + '/comments', comment);
       return response.data;
     } catch (e) {
       return null;
@@ -111,9 +148,20 @@ class POIService {
     }
   }
 
+
+
   async deleteAllPhotos () {
     try {
       const response = await axios.delete(this.baseUrl + '/api/photos');
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async deleteAllComments () {
+    try {
+      const response = await axios.delete(this.baseUrl + '/api/comments');
       return response.data;
     } catch (e) {
       return null;
@@ -137,6 +185,15 @@ class POIService {
   async deleteOnePhoto (id) {
     try {
       const response = await axios.delete(this.baseUrl + '/api/photos/' + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async deleteOneComment (id) {
+    try {
+      const response = await axios.delete(this.baseUrl + '/api/comments/' + id);
       return response.data;
     } catch (e) {
       return null;

@@ -2,6 +2,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 exports.createToken = function (user) {
+  let admin = false;
+ //if (admin.password ==- supersecretadminpassword) {
+ //   admin = true;
+ // }
   return jwt.sign({ id: user._id, email: user.email }, 'secretpasswordnotrevealedtoanyone', {
     algorithm: 'HS256',
     expiresIn: '1h',
@@ -14,6 +18,7 @@ exports.decodeToken = function (token) {
     var decoded = jwt.verify(token, 'secretpasswordnotrevealedtoanyone');
     userInfo.userId = decoded.id;
     userInfo.email = decoded.email;
+    //userInfo.admin = decoded.admin;
   } catch (e) {
   }
   return userInfo;

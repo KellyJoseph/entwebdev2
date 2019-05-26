@@ -3,7 +3,10 @@
 const assert = require('chai').assert;
 const POIService = require('./poi-service');
 const fixtures = require('./fixtures.json');
+const testPhoto = require('./test.jpg');
 const _ = require('lodash');
+var chai = require('chai');
+var chaiFiles = require('chai-files');
 
 suite('POI API tests', function () {
 
@@ -11,6 +14,7 @@ suite('POI API tests', function () {
   let newLocation =fixtures.newLocation;
   let newPhoto = fixtures.newPhoto;
   let newUser = fixtures.newUser;
+  let testImage = testPhoto;
   this.timeout(0)
 
 
@@ -41,17 +45,20 @@ suite('POI API tests', function () {
     poiService.deleteAllPhotos();
     const returnedLocation = await poiService.createLocation(newLocation);
     console.log(returnedLocation.name);
-    //the returned location's name is send as the location to the photo creation handler which will assign it to the
-    //location of the photo object it creates. This is done in lieu of route params.
-    //it would normally be sent from the view as a route parameter variable
-    const createdPhoto = await poiService.createPhoto(returnedLocation.name, newPhoto);
-    console.log(createdPhoto);
-    assert.equal(createdPhoto.title, newPhoto.title);
-    console.log(newPhoto);
+    let formData = new FormData();
+    formData.append('title', newPhoto.title);
+    formData.append('file', testImage);
+
+    const uploadedPhoto = await poiService.createPhoto("Hokkaido, formData");
+
+
+    console.log(uploadedPhoto);
     assert(_.some([createdPhoto], newPhoto),  'createdPhoto must be a superset of newPhoto');
     poiService.deleteAllPhotos();
     poiService.deleteOneLocation(returnedLocation._id)
   });
+
+
 
   test('get photo by ID', async function() {
     poiService.deleteAllPhotos();
@@ -63,9 +70,7 @@ suite('POI API tests', function () {
     console.log(createdPhoto);
     assert.equal(createdPhoto._id, searchedPhoto._id);
     poiService.deleteAllPhotos();
-    poiService.deleteOneLocation(returnedLocation._id)
-
-
+    poiService.deleteOneLocation(returnedLocation._id
   });
 
   test('delete photo by ID', async function() {

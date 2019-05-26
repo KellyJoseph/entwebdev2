@@ -1,7 +1,7 @@
 import { inject, Aurelia } from 'aurelia-framework';
 import { Router } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
-import { User, Location, Photo, Comment } from './poi-types';
+import { User, Location, Photo, Comment, Rating, Coordinates } from './poi-types';
 import { HttpClient } from 'aurelia-http-client';
 import { EventAggregator } from 'aurelia-event-aggregator';
 
@@ -13,6 +13,7 @@ export class PoiService {
   photos: Photo[] = [];
   //locationPhotos: Photo[] = [];
   comments: Comment[] = [];
+  ratings: Rating[] = [];
   paymentMethods = ['Cash', 'Paypal'];
   regions = ['North', ' North East', 'East', 'South East', 'South', 'South West', 'West', 'North West'];
   currentLocation: string;
@@ -54,29 +55,55 @@ export class PoiService {
     console.log(this.photos);
   }
 
+  async getRatings() {
+    const response = await this.httpClient.get('/api/ratings');
+    this.ratings = await response.content;
+    console.log(this.ratings);
+  }
+
+
+  ///////////////////////////////////////
+
   async deleteUser(_id) {
     console.log(_id);
-    const response = await this.httpClient.delete('api/users/' + _id);
+    const response = await this.httpClient.delete('/api/users/' + _id);
     console.log(response);
+
+    const response = await this.httpClient.get('/api/users');
+    const users = await response.content;
+    this.users2 = users;
   }
 
   async deleteLocation(_id) {
     console.log(_id);
-    const response = await this.httpClient.delete('api/locations/' + _id);
+    const response = await this.httpClient.delete('/api/locations/' + _id);
     console.log(response);
+    this.getPhotos();
   }
 
   async deletePhoto(_id) {
     console.log(_id);
-    const response = await this.httpClient.delete('api/photos/' + _id);
+    const response = await this.httpClient.delete('/api/photos/' + _id);
     console.log(response);
+
+    this.getPhotosByLocation()
   }
 
   async deleteComment(_id) {
     console.log(_id);
-    const response = await this.httpClient.delete('api/comments/' + _id);
+    const response = await this.httpClient.delete('/api/comments/' + _id);
     console.log(response);
   }
+
+  async deleteRating(_id) {
+    console.log(_id);
+    const response = await this.httpClient.delete('/api/ratings/' + _id);
+    console.log(response);
+  }
+
+
+
+  //////////////////////////////////////////////////////////////////////////////////
 
   async getPhotosByLocation(locationName) {
     const response = await this.httpClient.get('/api/locations/' + locationName +'/photos');
@@ -89,7 +116,19 @@ export class PoiService {
     await this.router.navigateToRoute('photos');
   }
 
+  async getCommentsByLocation(locationName) {
+    const response = await this.httpClient.get('/api/locations/' + locationName +'/comments');
+    this.comments = await response.content;
+    await this.router.navigateToRoute('photos');
+  }
 
+  async getRatingsByLocation(locationName) {
+    const response = await this.httpClient.get('/api/locations/' + locationName +'/ratings');
+    this.comments = await response.content;
+    await this.router.navigateToRoute('locations');
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async addLocation(name: string, description: string, author: string, region: string, latitude: string, longitude: string, _id: string) {
     const location = {
@@ -102,7 +141,8 @@ export class PoiService {
     };
     const response = await this.httpClient.post('/api/locations', location);
     console.log(response);
-    return response;
+
+    this.getLocations()
   }
 
   async signup(firstName: string, lastName: string, email: string, password: string) {
@@ -131,6 +171,8 @@ export class PoiService {
     console.log('type of selected image is : ' + typeof (selectedImage));
     const response = await this.httpClient.post('/api/locations/' + this.currentLocation + '/photos', formData);
     console.log(response);
+
+    this.getPhotos()
   }
 
   async postComment(comment: string) {
@@ -142,7 +184,21 @@ export class PoiService {
       time: ''
     };
     console.log('poi service is working on the comment now!' + newComment);
-    const response = await this.httpClient.post('api/locations/' + this.currentLocation + '/comments', newComment);
+    const response = await this.httpClient.post('/api/locations/' + this.currentLocation + '/comments', newComment);
+    console.log(response);
+    return response;
+  }
+
+  async postRating(rating: number) {
+    console.log('poi service is working on the rating now!');
+    const newRating = {
+      rating: rating,
+      author: '',
+      location: this.currentLocation,
+      time: ''
+    };
+    console.log('poi service is working on the rating now!' + newRating);
+    const response = await this.httpClient.post('/api/locations/' + this.currentLocation + '/ratings', newRating);
     console.log(response);
     return response;
   }

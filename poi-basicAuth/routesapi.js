@@ -1,7 +1,9 @@
 const Locations = require('./app/api/locations');
 const Users = require('./app/api/users');
 const Photos = require('./app/api/photos');
-const Comments = require('./app/api/comments');
+const Comments = require('./app/api/comments')
+const Ratings = require('./app/api/ratings');
+
 
 module.exports = [
   { method: 'GET', path: '/api/locations', config: Locations.find },
@@ -29,6 +31,13 @@ module.exports = [
   { method: 'GET', path: '/api/locations/{name}/comments', config: Comments.findByLocation },
   { method: 'POST', path: '/api/locations/{name}/comments', config: Comments.create },
   { method: 'DELETE', path: '/api/comments/{id}', config: Comments.deleteOne },
-  { method: 'DELETE', path: '/api/comments', config: Comments.deleteAll }
+  { method: 'DELETE', path: '/api/comments', config: Comments.deleteAll },
+
+  { method: 'GET', path: '/api/ratings', config: Ratings.find },
+  { method: 'GET', path: '/api/ratings/{id}', config: Ratings.findOne },
+  { method: 'GET', path: '/api/locations/{name}/ratings', config: Ratings.findByLocation },
+  { method: 'POST', path: '/api/locations/{name}/ratings', config: Ratings.create },
+  { method: 'DELETE', path: '/api/ratings/{id}', config: Ratings.deleteOne },
+  { method: 'DELETE', path: '/api/ratings', config: Ratings.deleteAll }
 ];
 

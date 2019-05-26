@@ -1,13 +1,13 @@
 'use strict';
 
-const Comment = require('../models/comment');
+const Rating = require('../models/rating');
 const User = require('../models/user');
 const Boom = require('boom');
 const utils = require('./utils');
 const moment = require('moment');
 
 
-const Comments = {
+const Ratings = {
 
   find: {
     //auth: false,
@@ -15,8 +15,8 @@ const Comments = {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
-      const comments = await Comment.find();
-      return comments;
+      const ratings = await Rating.find();
+      return ratings;
     }
   },
 
@@ -26,8 +26,8 @@ const Comments = {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
-      const comments = await Comment.find({ location: request.params.name });
-      return comments;
+      const ratings = await Rating.find({ location: request.params.name });
+      return ratings;
     }
   },
 
@@ -37,13 +37,13 @@ const Comments = {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
-      console.log("finding comment by ID from Comments API handler");
+      console.log("finding rating by ID from Ratings API handler");
       try {
-        const comment = await Comment.findOne({ _id: request.params.id });
-        if (!comment) {
-          return Boom.notFound('No Comment with this id');
+        const rating = await Rating.findOne({ _id: request.params.id });
+        if (!rating) {
+          return Boom.notFound('No Rating with this id');
         }
-        return comment;
+        return rating;
       } catch (err) {
         return Boom.notFound('No Comment with this id');
       }
@@ -56,20 +56,20 @@ const Comments = {
       strategy: 'jwt',
     },
     handler: async function(request, h) {
-      console.log("comment request received by handler, payload is: " + request.payload.comment);
+      console.log("comment request received by handler, payload is: " + request.payload.rating);
       const userId = utils.getUserIdFromRequest(request);
       const author = await User.findOne({ _id: userId });
       const currentTime = moment();
-      const newComment = new Comment({
-        comment: request.payload.comment,
+      const newRating = new Rating({
+        rating: request.payload.rating,
         author: author.firstName + " " + author.lastName,
         authorId: userId,
         location: request.params.name,
         time: currentTime
       })
-      console.log("new comment is: " + newComment)
-      await newComment.save();
-      return newComment;
+      console.log("new rating is: " + newRating)
+      await newRating.save();
+      return newRating;
     }
   },
 
@@ -80,9 +80,9 @@ const Comments = {
     },
     handler: async function(request, h) {
       try {
-        const comments = await Comment.find();
-        //console.log("photos length: " + photos.length);
-        await Comment.remove({});
+        const ratings = await Rating.find();
+        console.log("photos length: " + ratings.length);
+        await Rating.remove({});
         return { success: true };
       } catch (err) {
         return Boom.notFound('No Location with this id')
@@ -98,10 +98,10 @@ const Comments = {
     },
     handler: async function(request, h) {
       const userId = utils.getUserIdFromRequest(request);
-      const commentToDelete = await Comment.findOne({ _id: request.params.id });
-      console.log("user id is: " + userId + " and comment author id is " + commentToDelete.authorId );
-      if (userId === commentToDelete.authorId ) {
-        const response = await Comment.deleteOne({ _id: request.params.id });
+      const ratingToDelete = await Comment.findOne({ _id: request.params.id });
+      console.log("user id is: " + userId + " and comment author id is " + ratingToDelete.authorId );
+      if (userId === ratingToDelete.authorId ) {
+        const response = await Rating.deleteOne({ _id: request.params.id });
         if (response.deletedCount === 1) {
           return { success: true };
         }
@@ -113,4 +113,4 @@ const Comments = {
 };
 
 
-module.exports = Comments;
+module.exports = Ratings;

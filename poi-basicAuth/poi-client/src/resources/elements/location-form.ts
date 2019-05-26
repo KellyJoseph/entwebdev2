@@ -20,15 +20,7 @@ export class LocationForm {
 
 
   addLocation() {
-    const location = {
-      name: this.name,
-      description: this.description,
-      author: this.author,
-      region: this.region,
-      latitude: this.lat,
-      longitude: this.lng,
-      _id: ''
-    };
+    console.log("add location function triggered");
     const result = this.ds.addLocation(this.name, this.description, this.author, this.region, this.lat, this.lng, this._id);
     console.log(location);
     console.log(result);
