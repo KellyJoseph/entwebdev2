@@ -1,3 +1,4 @@
+
 <template>
   <section class="ui raised segment">
     <aside>
@@ -12,7 +13,8 @@
           <th>id</th>
           <th>photos</th>
           <th>delete</th>
-          <th>edit</th>
+          <th>rating</th>
+          <th>rate</th>
         </tr>
         </thead>
         <tbody>
@@ -22,13 +24,28 @@
           <td> ${location._id} </td>
           <td><button> <a href="http://localhost:8080/#/photos" click.trigger="getPhotosByLocation(location.name)">View Photos </a> </button> </td>
           <td><button click.trigger="deleteLocation(location._id)">Delete Location</button> </td>
-          <td><a href="/updatelocationform/${location._id}"><i class="large edit icon"></i></a></td>
+          <td>
+            <div class="ui star rating">
+            <i class="icon"></i>
+            <i class="icon"></i>
+            <i class="icon"></i>
+            <i class="icon"></i>
+            <i class="icon"></i>
+            </div></td>
+          <td>
+
+            <form role="form">
+              <select value.bind="selectedVal">
+                <option repeat.for="option of someOptions" model.bind="option">${option.name}</option>
+              </select>
+            </form>
+
+
+
+          </td>
         </tr>
         </tbody>
       </table>
-
-
     </article>
-    </div>
   </section>
 </template>

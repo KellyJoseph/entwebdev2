@@ -36,6 +36,7 @@ module.exports = [
   { method: 'GET', path: '/api/ratings', config: Ratings.find },
   { method: 'GET', path: '/api/ratings/{id}', config: Ratings.findOne },
   { method: 'GET', path: '/api/locations/{name}/ratings', config: Ratings.findByLocation },
+  { method: 'GET', path: '/api/locations/{name}/ratingsAverage', config: Ratings.getAverageRating },
   { method: 'POST', path: '/api/locations/{name}/ratings', config: Ratings.create },
   { method: 'DELETE', path: '/api/ratings/{id}', config: Ratings.deleteOne },
   { method: 'DELETE', path: '/api/ratings', config: Ratings.deleteAll }

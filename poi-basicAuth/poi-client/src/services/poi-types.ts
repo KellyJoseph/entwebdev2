@@ -35,6 +35,14 @@ export interface Comment {
   time: string;
 }
 
+export interface Rating {
+  _id: string;
+  rating: number;
+  author: string;
+  location: string;
+  time: string;
+}
+
 export interface Coordinates {
   lat: number;
   lng: number;

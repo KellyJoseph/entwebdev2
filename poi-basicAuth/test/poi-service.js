@@ -45,6 +45,15 @@ class POIService {
       return null;
     }
   }
+
+  async getAllRatings() {
+    try {
+      const response = await axios.get(this.baseUrl + '/api/ratings');
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 //////////////////////////////////////////////////////////////////////////////////////////
   async getLocation(id) {
     try {
@@ -77,6 +86,16 @@ class POIService {
     try {
       console.log("poi service about to send request to " + this.baseUrl + '/api/comments/' + id);
       const response = await axios.get(this.baseUrl + '/api/comments/' + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getRating(id) {
+    try {
+      console.log("poi service about to send request to " + this.baseUrl + '/api/ratings/' + id);
+      const response = await axios.get(this.baseUrl + '/api/ratings/' + id);
       return response.data;
     } catch (e) {
       return null;
@@ -128,6 +147,15 @@ class POIService {
       return null;
     }
   }
+
+  async createRating(name, comment) {
+    try {
+      const response = await axios.post(this.baseUrl + '/api/locations/' + name + '/ratings', comment);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 ///////////////////////////////////////////////////////////////////////////////////////
 
   async deleteAllLocations() {
@@ -168,6 +196,15 @@ class POIService {
     }
   }
 
+  async deleteAllRatings () {
+    try {
+      const response = await axios.delete(this.baseUrl + '/api/ratings');
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -194,6 +231,15 @@ class POIService {
   async deleteOneComment (id) {
     try {
       const response = await axios.delete(this.baseUrl + '/api/comments/' + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async deleteOneRating (id) {
+    try {
+      const response = await axios.delete(this.baseUrl + '/api/ratings/' + id);
       return response.data;
     } catch (e) {
       return null;

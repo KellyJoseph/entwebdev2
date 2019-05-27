@@ -20,6 +20,24 @@ const Ratings = {
     }
   },
 
+  getAverageRating: {
+    //auth: false,
+    auth: {
+      strategy: 'jwt',
+    },
+    handler: async function(request, h) {
+      const ratings = await this.getRatingsByLocation(locationName)
+
+      let total = 0;
+      for(let i = 0; i < ratings.length; i++) {
+        total += ratings[i].rating;
+      }
+      let average = total / ratings.length;
+
+      return average;
+    }
+  },
+
   findByLocation: {
     //auth: false,
     auth: {

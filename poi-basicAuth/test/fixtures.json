@@ -93,6 +93,18 @@
     }
   ],
 
+  "ratings": [
+    {
+      "rating": 3
+    },
+    {
+      "rating": 4
+    },
+    {
+      "rating": 5
+    }
+  ],
+
   "newLocation": {
     "name": "Hokkaido",
     "description": "A wintry northern isle, famed for its snow festival",
@@ -100,8 +112,13 @@
     "latitude": "Don't worry about it",
     "longitude": "Don't worry about it"
   },
+
   "newComment": {
     "comment": "Hello from Test Fixtures newComment!"
+  },
+
+  "newRating": {
+    "rating": 2
   },
 
 

@@ -11,6 +11,24 @@ export class LocationList {
   @bindable
   locationPhotos: Photo[];
 
+  @bindable
+  formOptions = [1,2,3,4,5];
+/*
+<select class="ui fluid search dropdown" value.bind="selectedOption">
+  <option value.bind="rating">Choose..</option>
+    <option repeat.for="rating of formOptions" value.bind="rating">${rating} </option>
+    </select>
+*/
+
+  selectedVall = 3;
+@bindable
+  someOptions = [
+    {value: 1, name: 1},
+    {value: 2, name: 2},
+    {value: 3, name: 3},
+    {value: 4, name: 4},
+    {value: 5, name: 5},
+  ];
 
   constructor (private ds: PoiService) {}
 
@@ -22,6 +40,10 @@ export class LocationList {
   deleteLocation(id) {
     this.ds.deleteLocation(id);
     console.log("delete button was triggered for " + id);
+  }
+
+  addRating(locationName) {
+    this.ds.postRating(this.rating);
   }
 }
 
