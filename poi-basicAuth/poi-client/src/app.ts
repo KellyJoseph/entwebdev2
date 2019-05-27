@@ -14,12 +14,7 @@ export class App {
         nav: true,
         title: 'Locations'
       },
-      {
-        route: 'poi/:id',
-        name: 'poiDetail',
-        moduleId: PLATFORM.moduleName('./views/poi_detail'),
-        title: "Island"
-      },
+
       {
         route: 'photos',
         name: 'photos',

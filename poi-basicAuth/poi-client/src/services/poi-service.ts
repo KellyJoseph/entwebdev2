@@ -69,8 +69,8 @@ export class PoiService {
     const response = await this.httpClient.delete('/api/users/' + _id);
     console.log(response);
 
-    const response = await this.httpClient.get('/api/users');
-    const users = await response.content;
+    const response2 = await this.httpClient.get('/api/users');
+    const users = await response2.content;
     this.users2 = users;
   }
 
@@ -85,8 +85,6 @@ export class PoiService {
     console.log(_id);
     const response = await this.httpClient.delete('/api/photos/' + _id);
     console.log(response);
-
-    this.getPhotosByLocation()
   }
 
   async deleteComment(_id) {
@@ -168,7 +166,6 @@ export class PoiService {
     formData.append('title', title);
     formData.append('location', this.currentLocation);
     formData.append('file', files[0]);
-    console.log('type of selected image is : ' + typeof (selectedImage));
     const response = await this.httpClient.post('/api/locations/' + this.currentLocation + '/photos', formData);
     console.log(response);
 
